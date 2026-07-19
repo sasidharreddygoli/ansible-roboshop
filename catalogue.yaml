@@ -69,6 +69,7 @@
   - name: connnect to mongodb catalogue
     ansible.builtin.command: mongosh mongodb.reddy3.fun --quiet --eval "db.getMongo().getDBNames().indexOf('catalogue')"
     register: catalogue_output
+    ignore_errors: true
 
   # - name: evaluate cataalogue database
   #   community.mongodb.mongodb_shell:
