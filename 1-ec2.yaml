@@ -6,7 +6,7 @@
     sg_id:  sg-07ff3cc33c1e586ee # replace with your SG ID
     zone_id: "Z06749871383GP3VE90N7" # replace with your ID
     domain_name: "reddy3.fun"
-    instance:
+    instances:
     - mongodb
   tasks:
   - name: create ec2 instance
@@ -17,10 +17,18 @@
       image_id: "{{ ami_id }}"
       tags:
         Name: "{{ item }}"
-    loop: "{{ instance }}"
+    loop: "{{ instances }}"
     register: ec2_output
 
   - name: print ec2 instance details
     ansible.builtin.debug:
       msg: "{{ ec2_output }}"
-    
+  
+  - name: print private ip of the instance
+    ansible.builtin.debug:
+      msg: "{{ ec2_output.results[0].instances[0].private_ip_address }}" 
+    loop:"{{ec2_output.results}}"   
+        
+  - name: print public ip of the instance
+    ansible.builtin.debug:
+      msg: "{{ ec2_output.results[0].instances[0].public_ip_address }}"    
