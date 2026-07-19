@@ -57,7 +57,7 @@
 
   - name: connnect to mongodb catalogue
     ansible.builtin.command:
-      cmd: "mongosh --host mongodb.reddy3.fun --quiet --eval \"db.getMongo().getDBNames().indexOf('catalogue')\""
+      cmd: "mongosh --host mongodb.reddy3.fun </app/db/master-data.js"
     register: catalogue_output
 
 
