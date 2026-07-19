@@ -50,15 +50,16 @@
     ansible.builtin.copy:
       src: mongo.repo
       dest: /etc/yum.repos.d/mongo.repo
+
   - name: install mongodb client 
     ansible.builtin.package:
       name: mongodb-mongosh 
       state: present
 
   - name: connnect to mongodb catalogue
-    ansible.builtin.command:
-      cmd: "mongosh --host mongodb.reddy3.fun </app/db/master-data.js"
+    ansible.builtin.command: mongosh mongodb.reddy3.fun --quiet --eval "db.getMongo().getDBNames().indexOf('catalogue')"
     register: catalogue_output
+
 
 
   - name: get Db data creation status
