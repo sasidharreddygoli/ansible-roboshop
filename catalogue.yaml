@@ -57,7 +57,7 @@
       state: present
 
   - name: connnect to mongodb catalogue
-    ansible.builtin.command: mongosh mongodb.reddy3.fun --quiet --eval "db.getMongo().getDBNames().indexOf('catalogue')"
+    ansible.builtin.shell: mongosh mongodb.reddy3.fun --quiet --eval "db.getMongo().getDBNames().indexOf('catalogue')"
     register: catalogue_output
 
 
