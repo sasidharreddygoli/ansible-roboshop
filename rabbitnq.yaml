@@ -1,0 +1,13 @@
+- name: setup rabbitmq
+  hosts: rabbitmq
+  become: true
+  tasks:
+  - name: install rabbitmq
+    ansible.builtin.package:
+      name: rabbitmq-server
+      state: present
+  - name : start and enable the rabbitmq service
+    ansible.builtin.service:
+      name: rabbitmq-server
+      state: started
+      enabled: true
