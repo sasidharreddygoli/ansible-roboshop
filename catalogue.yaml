@@ -56,9 +56,11 @@
       name: mongodb-mongosh 
       state: present
 
-  - name: connnect to mongodb catalogue
-    ansible.builtin.shell: mongosh mongodb.reddy3.fun --quiet --eval "db.getMongo().getDBNames().indexOf('catalogue')"
+  - name: Load schema into MongoDB
+    ansible.builtin.shell: 
+      cmd: "mongosh --host mongodb.reddy3.fun </app/schema/catalogue.js"
     register: catalogue_output
+
 
 
 

@@ -1,0 +1,5 @@
+TASK [connnect to mongodb catalogue] ****************************************************************************************************************************************************
+fatal: [catalogue.reddy3.fun]: FAILED! =>
+ {"changed": true, "cmd":
+  "mongosh mongodb.reddy3.fun --quiet --eval \"db.getMongo().getDBNames().indexOf('catalogue')\"", "delta": "0:00:30.979786", "end": "2026-07-19 11:12:04.670444", "msg": "non-zero return code", "rc": 1, "start": "2026-07-19 11:11:33.690658", "stderr": "MongoServerSelectionError: Server selection timed out after 30000 ms", "stderr_lines": ["MongoServerSelectionError: Server selection timed out after 30000 ms"],
+   "stdout": "", "stdout_lines": []}
