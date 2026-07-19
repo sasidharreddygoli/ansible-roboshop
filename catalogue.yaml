@@ -1,5 +1,6 @@
 - name: setup catalogue server
   hosts: catalogue
+  connection: local
   become: yes
   tasks:
   - name: disbale nodejs module
