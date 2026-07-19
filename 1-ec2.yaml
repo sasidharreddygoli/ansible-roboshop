@@ -7,7 +7,7 @@
     zone_id: "Z06749871383GP3VE90N7" # replace with your ID
     domain_name: "reddy3.fun"
     instance:
-      -mongodb
+    - mongodb
   tasks:
   - name: create ec2 instance
     amazon.aws.ec2_instance:
