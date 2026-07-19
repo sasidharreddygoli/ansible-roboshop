@@ -37,4 +37,30 @@
       src: /tmp/catalogue.zip
       dest: /app
       remote_src: yes
+
+  - name: install node dependencies
+    community.general.npm:
+      path: /app
+
+  - name: update the catalogue systemd service file
+    ansible.builtin.template:
+      src: catalogue.server
+      dest: /etc/systemd/system/catalogue.service
+  - name: create mongodb repo file
+    ansible.builtin.copy:
+      src: mongo.repo
+      dest: /etc/yum.repos.d/mongo.repo
+  - name: install mongodb client 
+    ansible.builtin.package:
+      name: mongodb-mongosh 
+      state: present
+  - name: connect to mongodb and create catalogue database
+    ansible.builtin.command:
+      cmd: "mongosh --host MONGODB-SERVER-IPADDRESS </app/db/master-data.js"
+    registers: catalogue_db
+  - name: get Db data creation status
+    ansible.builtin.debug:
+      msg: "{{ catalogue_db }}"
+
+
  
