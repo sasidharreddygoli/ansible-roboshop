@@ -55,8 +55,8 @@
       name: mongodb-mongosh 
       state: present
   - name: connect to mongodb and create catalogue database
-    ansible.builtin.command:
-      cmd: "mongosh --host MONGODB-SERVER-IPADDRESS </app/db/master-data.js"
+    ansible.builtin.command: mongosh mongodb.reddy3.fun --quiet --eval "db.getMongo().getDBNames().indexOf('catalogue')"
+      
     registers: catalogue_db
   - name: get Db data creation status
     ansible.builtin.debug:
