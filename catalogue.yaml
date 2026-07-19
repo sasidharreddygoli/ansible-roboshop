@@ -60,6 +60,7 @@
       path: /etc/mongod.conf  
       regexp: "127.0.0.1"
       replace: "0.0.0.0"
+      notify: restart mongodb
 
   - name: Load schema into MongoDB
     ansible.builtin.shell: mongosh mongodb.daws86s.fun --quiet --eval "db.getMongo().getDBNames().indexOf('catalogue')"
