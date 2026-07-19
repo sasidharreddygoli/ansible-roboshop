@@ -24,12 +24,23 @@
   #   ansible.builtin.debug:
   #     msg: "{{ ec2_output }}"
   
-  - name: print private ip of the instance
-    ansible.builtin.debug:
-      msg: "{{ ec2_output.results[0].instances[0].private_ip_address }}" 
-    loop: "{{ec2_output.results}}"   
+  # - name: print private ip of the instance
+  #   ansible.builtin.debug:
+  #     msg: "{{ ec2_output.results[0].instances[0].private_ip_address }}" 
+  #   loop: "{{ec2_output.results}}"   
         
-  - name: print public ip of the instance
-    ansible.builtin.debug:
-      msg: "{{ ec2_output.results[0].instances[0].public_ip_address }}"  
-    loop: "{{ec2_output.results}}"   
+  # - name: print public ip of the instance
+  #   ansible.builtin.debug:
+  #     msg: "{{ ec2_output.results[0].instances[0].public_ip_address }}"  
+  #   loop: "{{ec2_output.results}}"   
+
+  - name: Create Route53 record
+    amazon.aws.route53:
+      zone: "{{ domain_name }}"
+      record: "{{ item.item }}.{{ domain_name }}" # url mongodb.reddy3.fun
+      type: A
+      value: "{{ ec2_output.results[0].instances[0].private_ip_address }}"
+      ttl:  1
+      state: present
+      overwrite: yes
+    loop: "{{ec2_output.results}}"
