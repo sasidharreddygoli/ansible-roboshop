@@ -53,7 +53,7 @@
 
   - name: copy catalogue service
     ansible.builtin.copy:
-      src: catalogue.service
+      src: catalogue.server
       dest: /etc/systemd/system/catalogue.service
 
   - name: copy mongo repo
