@@ -55,14 +55,14 @@
       name: mongodb-mongosh 
       state: present
 
-  - name: connect to mongodb catalogue
-    ansible.builtin.command: mongosh mongodb.reddy3.fun --quiet --eval "db.getMongo().getDBNames().indexOf('catalogue')" 
-    registers: catalogue_db
+  - name: connnect to mongodb catalogue
+    ansible.builtin.command: mongosh mongodb.reddy3.fun --quiet --eval "db.getMongo().getDBNames().indexOf('catalogue')"
+    register: catalogue_output
 
-    
+
   - name: get Db data creation status
     ansible.builtin.debug:
-      msg: "{{ catalogue_db }}"
+      msg: "{{ catalogue_output }}"
 
 
  
