@@ -1,32 +1,65 @@
-- name: setup redis
+# - name: setup redis
+#   hosts: redis
+#   become: true
+#   tasks:
+#   - name: Disable redis service
+#     ansible.builtin.command:
+#       cmd: dnf module disable redis -y
+#   - name: enable redis service
+#     ansible.builtin.command:
+#       cmd: dnf module enable redis:7 -y
+
+#   - name: install redis
+#     ansible.builtin.package:
+#       name: redis
+#       state: present
+
+#   - name: Update the port in the redis config file
+#     ansible.builtin.replace:
+#       path: /etc/redis/redis.conf 
+#       regexp: "127.0.0.1"
+#       replace: "0.0.0.0"
+
+#   - name: Change the protected-mode to no in the redis config file
+#     ansible.builtin.lineinfile:
+#       path: /etc/redis/redis.conf
+#       regexp: '^protected-mode' 
+#       line: 'protected-mode no'
+#   - name: start and enable the redis service
+#     ansible.builtin.service:
+#       name: redis
+#       state: started
+#       enabled: true
+
+- name: setup redis server
   hosts: redis
-  become: true
+  become: yes
   tasks:
-  - name: Disable redis service
-    ansible.builtin.command:
-      cmd: dnf module disable redis -y
-  - name: enable redis service
-    ansible.builtin.command:
-      cmd: dnf module enable redis:7 -y
+  - name: disable default redis
+    ansible.builtin.command: dnf module disable redis -y
+
+  - name: enable redis 7
+    ansible.builtin.command: dnf module enable redis:7 -y
 
   - name: install redis
     ansible.builtin.package:
       name: redis
       state: present
-
-  - name: Update the port in the redis config file
+  
+  - name: allow remote connections
     ansible.builtin.replace:
-      path: /etc/redis/redis.conf 
-      regexp: "127.0.0.1"
-      replace: "0.0.0.0"
-      
-  - name: Change the protected-mode to no in the redis config file
+      path: /etc/redis/redis.conf
+      regexp: '127.0.0.1'
+      replace: '0.0.0.0'
+
+  - name: disable proctected mode
     ansible.builtin.lineinfile:
       path: /etc/redis/redis.conf
-      regexp: '^protected-mode' 
+      regexp: 'protected-mode'
       line: 'protected-mode no'
-  - name: start and enable the redis service
+
+  - name: start and enable redis
     ansible.builtin.service:
       name: redis
+      enabled: yes
       state: started
-      enabled: true
