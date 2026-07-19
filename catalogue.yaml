@@ -1,6 +1,6 @@
-- name: set up catalogue
+- name: setup catalogue server
   hosts: catalogue
-  become: true
+  become: yes
   tasks:
   - name: disbale nodejs module
     ansible.builtin.command:
