@@ -78,8 +78,9 @@
   #     state: started
   #     enabled: true
 
-  - name: connnect to mongodb catalogue
-    ansible.builtin.command: mongosh mongodb.reddy3.fun --quiet --eval "db.getMongo().getDBNames().indexOf('catalogue')"
+  - name: Load Master Data / Schema
+    ansible.builtin.command:
+      cmd: mongosh --host mongodb.reddy3.fun < /app/db/master-data.js
     register: catalogue_output
     # ignore_errors: true 
 
