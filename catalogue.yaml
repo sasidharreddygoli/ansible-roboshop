@@ -68,13 +68,13 @@
   
   - name: replace the bindIp in the mongodb config file
     ansible.builtin.replace:
-      path: /etc/mongod.conf  
+      path: /etc/ mongodb-mongosh.conf  
       regexp: "127.0.0.1"
       replace: "0.0.0.0"
       
   - name: start and enable the mongodb service
     ansible.builtin.service:
-      name: mongod
+      name:  mongodb-mongosh
       state: started
       enabled: true
 
