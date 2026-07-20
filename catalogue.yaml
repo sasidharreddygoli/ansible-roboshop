@@ -61,22 +61,22 @@
       src: mongo.repo
       dest: /etc/yum.repos.d/mongo.repo
 
-  - name: install mongodb client
+  - name: install mongodb
     ansible.builtin.package:
-      name: mongodb-mongosh
+      name: mongodb-org
       state: present
   
-  # - name: replace the bindIp in the mongodb config file
-  #   ansible.builtin.replace:
-  #     path: /etc/mongod.conf
-  #     regexp: "127.0.0.1"
-  #     replace: "0.0.0.0"
+  - name: replace the bindIp in the mongodb config file
+    ansible.builtin.replace:
+      path: /etc/mongod.conf
+      regexp: "127.0.0.1"
+      replace: "0.0.0.0"
       
-  # - name: start and enable the mongodb service
-  #   ansible.builtin.service:
-  #     name:  mongod
-  #     state: started
-  #     enabled: true
+  - name: start and enable the mongodb service
+    ansible.builtin.service:
+      name:  mongod
+      state: started
+      enabled: true
 
   - name: Load Master Data / Schema
     ansible.builtin.command:
